@@ -1,0 +1,66 @@
+.markBox{
+    @height:30px;
+    width: 110px;
+
+    height: @height;
+    line-height: @height;
+    border-radius: @height;
+    margin-top: -5px;
+    margin-left: -5px;
+    position: relative;
+    box-sizing: border-box;
+    padding-left: 35px;
+    text-align: left;
+    font-size: 16px;
+    color: #fff;
+    opacity: 0.8;
+    &:hover{opacity: 1;}
+    span.icon{
+        @size:24px;
+        height: @size;
+        width: @size;
+        border-radius: @size;
+        line-height: @size;
+        left: 3px; top: 3px;
+        position: absolute;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        background: #fff;
+    }
+
+    span.mis{
+        width: 15px; height: 15px;
+        transform:rotate(45deg);
+        bottom: -3px; left: 8px;
+        position: absolute;
+    }
+
+ }
+
+// 主题色配置
+@colors: {
+    Grey: 191, 191, 191;    /*默认灰色 Grey*/
+    Red: 255, 77, 79;       /* Red 薄暮 */
+    Volcano: 255, 122, 69;  /* Volcano 火山 */
+    Orange: 255, 122, 69;   /* Orange 日暮 */
+    Gold: 255, 197, 61;     /* Gold 金盏花 */
+    Yellow: 255, 236, 61;   /* Yellow 日出 */
+    Lime: 186, 230, 55;     /* Lime 青柠 */
+    Green: 155, 209, 61;    /* Green 极光绿 */
+    Cyan: 54, 207, 201;     /* Cyan 明青 */
+    Blue: 64, 169, 255;     /* Blue 拂晓蓝 */
+    GeekBlue: 89, 126, 247; /* GeekBlue 极客蓝 */
+    Purple:146, 84, 222;    /* Purple 酱紫 */
+    Magenta:247, 89, 171;   /* Magenta 法式洋红 */
+  }
+
+each(@colors, {
+    .theme@{key} {
+        background: rgba(@value);
+        span.icon{ color: rgba(@value); }
+        span.mis{ background:rgba(@value); }
+        &:hover{box-shadow:2px 4px 3px rgba(@value, 0.3) }
+    }
+});
+
