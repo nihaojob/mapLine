@@ -37,7 +37,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "maplib",
+  "name": "maplib2",
   "author": "qinshaowei",
   "module": "dist/maplib.esm.js",
   "devDependencies": {

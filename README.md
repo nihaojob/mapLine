@@ -1,167 +1,166 @@
-# TSDX React User Guide
 
-Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
 
-> This TSDX setup is meant for developing React components (not apps!) that can be published to NPM. If you’re looking to build an app, you should use `create-react-app`, `razzle`, `nextjs`, `gatsby`, or `react-static`.
+# 线路展示
 
-> If you’re new to TypeScript and React, checkout [this handy cheatsheet](https://github.com/sw-yx/react-typescript-cheatsheet/)
+[Demo](http://nihaojob.gitee.io/carui/)
 
-## Commands
 
-TSDX scaffolds your new library inside `/src`, and also sets up a [Parcel-based](https://parceljs.org) playground for it inside `/example`.
+## 使用说明
 
-The recommended workflow is to run TSDX in one terminal:
+`注：`实例代码中，需将`import { Maps } from 'dumi-lib'`替换为 `import Maplib2 from 'maplib2'。
+`
 
-```bash
-npm start # or yarn start
+```html
+<!-- html部分添加高德adk -->
+<script src="https://webapi.amap.com/maps?v=1.4.15&key=你的key&plugin=AMap.Driving"></script>
+
+<!-- 安装依赖 -->
+npm i maplib2
+or
+yarn add maplib2
+
+<!-- 使用组件 -->
+import Maplib2 from 'maplib2'
+import 'maplib2/dist/mapLine.min.css'
+
+<Maplib2 {...options}/>
+
 ```
 
-This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
 
-Then run the example inside another:
+## 代码演示
 
-```bash
-cd example
-npm i # or yarn to install dependencies
-npm start # or yarn start
-```
+```tsx
+import React from 'react';
+import { Maps } from 'dumi-lib';
 
-The default example imports and live reloads whatever is in `/dist`, so if you are seeing an out of date component, make sure TSDX is running in watch mode like we recommend above. **No symlinking required**, [we use Parcel's aliasing](https://github.com/palmerhq/tsdx/pull/88/files).
+// 重庆--西安--郑州--济南--潍坊--青岛--潍坊
+const path = [
+        {
+            iconText:'起',
+            title:'重庆',
+            LT:[106.550464,29.563761],
+        },
+        {
+            iconText:'转',
+            title:'西安',
+            LT:[108.939621,34.343147],
+        },
+        {
+            iconText:'支',
+            title:'郑州',
+            theme:6,
+            LT:[116.438068,39.706265],
+        },
+        {
+            iconText:'干',
+            title:'潍坊',
+            theme:8,
+            LT:[119.107078,36.70925],
+        },
+        {
+            iconText:'干',
+            theme:9,
+            LT:[120.374402,36.168923],
+            title:'青岛'
+        },
+        {
+            iconText:'终',
+            title:'武汉',
+            theme:12,
+            LT:[114.30219,30.572921],
+        },
+    ]
 
-To do a one-off build, use `npm run build` or `yarn build`.
+const donePath = [
+    {
+        LT:[106.550464,29.563761],
+    },
+    {
+        LT:[108.939621,34.343147],
+    },
+]
 
-To run tests, use `npm test` or `yarn test`.
-
-## Configuration
-
-Code quality is [set up for you](https://github.com/palmerhq/tsdx/pull/45/files) with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
-
-### Jest
-
-Jest tests are set up to run with `npm test` or `yarn test`. This runs the test watcher (Jest) in an interactive mode. By default, runs tests related to files changed since the last commit.
-
-#### Setup Files
-
-This is the folder structure we set up for you:
-
-```shell
-/example
-  index.html
-  index.tsx       # test your component here in a demo app
-  package.json
-  tsconfig.json
-/src
-  index.tsx       # EDIT THIS
-/test
-  blah.test.tsx   # EDIT THIS
-.gitignore
-package.json
-README.md         # EDIT THIS
-tsconfig.json
-```
-
-#### React Testing Library
-
-We do not set up `react-testing-library` for you yet, we welcome contributions and documentation on this.
-
-### Rollup
-
-TSDX uses [Rollup v1.x](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
-
-### TypeScript
-
-`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
-
-## Continuous Integration
-
-### Travis
-
-_to be completed_
-
-### Circle
-
-_to be completed_
-
-## Optimizations
-
-Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
-
-```js
-// ./types/index.d.ts
-declare var __DEV__: boolean;
-
-// inside your code...
-if (__DEV__) {
-  console.log('foo');
+const options = {
+    path,
+    donePath,
+    position:{
+        show: true,
+        LT: [108.939621,34.343147],
+    },
 }
+
+export default () => <Maps {...options} />;
 ```
 
-You can also choose to install and use [invariant](https://github.com/palmerhq/tsdx#invariant) and [warning](https://github.com/palmerhq/tsdx#warning) functions.
 
-## Module Formats
+## API
 
-CJS, ESModules, and UMD module formats are supported.
+属性如下
 
-The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
+| 参数         | 说明               | 类型    |  默认值 |
+| ------------| ------------------ | ------ |--------|
+| path        | 路径数据           | `Array`   |          |
+| pathColor   | 路径颜色           | `String`  | `#1890ff`  |
+| donePath    | 已完成路径         | `Array`   |           |
+| donePathColor | 已完成路径颜色    | `String`  |`#bfbfbf` |
+| marker       | 节点样式          | `Object`   |       |
+| anime        | 轨迹回放          | `Object`   |       |
+| animeMarker  | 获取回放节点动画对象 | `Function`  |       |
+| position     | 当前位置          | `Object`   |       |
 
-## Using the Playground
 
-```bash
-cd example
-npm i # or yarn to install dependencies
-npm start # or yarn start
-```
+### path
 
-The default example imports and live reloads whatever is in `/dist`, so if you are seeing an out of date component, make sure TSDX is running in watch mode like we recommend above. **No symlinking required**!
 
-## Deploying the Playground
+| 参数      | 说明               | 类型    |  默认值 |
+| -------- | ------------------ | ------ |--------|
+| iconText | 图标文字            |`String`  |       |
+| title    | mark文字            |`String` |       |
+| LT       | 坐标 [经度,纬度]     |`Array`   |        |
+| theme     | 主题 1-12          |`number` |随机分配  |
 
-The Playground is just a simple [Parcel](https://parceljs.org) app, you can deploy it anywhere you would normally deploy that. Here are some guidelines for **manually** deploying with the Netlify CLI (`npm i -g netlify-cli`):
+### donePath
 
-```bash
-cd example # if not already in the example folder
-npm run build # builds to dist
-netlify deploy # deploy the dist folder
-```
+| 参数      | 说明               | 类型    |  默认值 |
+| -------- | ------------------ | ------ |--------|
+| LT       | 坐标 [经度,纬度]     |`Array`   |        |
 
-Alternatively, if you already have a git repo connected, you can set up continuous deployment with Netlify:
+### marker
 
-```bash
-netlify init
-# build command: yarn build && cd example && yarn && yarn build
-# directory to deploy: example/dist
-# pick yes for netlify.toml
-```
+| 参数      | 说明               | 类型    |  默认值 |
+| -------- | ------------------ | ------ |--------|
+| show     | marker显示/隐藏      |`Boolean`|`true`  |
+| styles   | marker主题(暂未开放) |`String` |        |
 
-## Named Exports
 
-Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
+### anime
 
-## Including Styles
+| 参数      | 说明               | 类型    |  默认值 |
+| -------- | ------------------ | ------ |--------|
+| show     | 显示/隐藏            |`Boolean`|`true`  |
+| icon     | 节点图标             |`String` |        |
+| pathColor| 回放后的路径颜色      | `String` | `#722ed1`|
+| type     | 回放路径 `path` || `donePath`   | `String` | `path`|
 
-There are many ways to ship styles, including with CSS-in-JS. TSDX has no opinion on this, configure how you like.
 
-For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
+### position
 
-## Publishing to NPM
+| 参数      | 说明               | 类型    |  默认值 |
+| -------- | ------------------ | ------ |--------|
+| show     | 显示/隐藏            |`Boolean`|`true`  |
+| icon     | 节点图标             |`String` |        |
+| LT       | 坐标 [经度,纬度]     |`Array`   |        |
 
-We recommend using [np](https://github.com/sindresorhus/np).
 
-## Usage with Lerna
 
-When creating a new package with TSDX within a project set up with Lerna, you might encounter a `Cannot resolve dependency` error when trying to run the `example` project. To fix that you will need to make changes to the `package.json` file _inside the `example` directory_.
+## ToDoList
+- [X] 隐藏展示配置
+- [X] 颜色配置
+- [X] 无途经点
+- [X] 添加第一版文档
+- [X] 发布npm
+- [ ] NPM文档更新
+- [ ] 关键字搜索
+- [ ] 多条线路配置
 
-The problem is that due to the nature of how dependencies are installed in Lerna projects, the aliases in the example project's `package.json` might not point to the right place, as those dependencies might have been installed in the root of your Lerna project.
-
-Change the `alias` to point to where those packages are actually installed. This depends on the directory structure of your Lerna project, so the actual path might be different from the diff below.
-
-```diff
-   "alias": {
--    "react": "../node_modules/react",
--    "react-dom": "../node_modules/react-dom"
-+    "react": "../../../node_modules/react",
-+    "react-dom": "../../../node_modules/react-dom"
-   },
-```
-
-An alternative to fixing this problem would be to remove aliases altogether and define the dependencies referenced as aliases as dev dependencies instead. [However, that might cause other problems.](https://github.com/palmerhq/tsdx/issues/64)
