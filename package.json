@@ -12,6 +12,10 @@
     "Android >= 4.4",
     "iOS >= 9"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@https://github.com/nihaojob/mapLine.git"
+  },
   "engines": {
     "node": ">=10"
   },
