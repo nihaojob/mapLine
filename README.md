@@ -39,8 +39,8 @@ import 'maplib2/dist/mapLine.min.css'
 ## 代码演示
 
 ```tsx
-import React from 'react';
-import { Maps } from 'dumi-lib';
+import Maplib2 from 'maplib2'
+import 'maplib2/dist/mapLine.min.css'
 
 // 重庆--西安--郑州--济南--潍坊--青岛--潍坊
 const path = [

@@ -63,7 +63,7 @@ position:{
 const App = () => {
   return (
     <div>
-      <Maps {...options}/>
+      <Maps {...options} />
     </div>
   );
 };
