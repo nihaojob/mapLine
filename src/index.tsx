@@ -390,15 +390,6 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
 
 
 export default Maps;
-
-// export { Maps };
-// Maps.propTypes = {};
-// Maps.defaultProps = {};
-// export default { Maps };
-// export  { Maps };
-// export Maps;
-// export default ({ title }: { title: string }) => <h1>{title}</h1>;
-
 // export { default as Maps }
 
 

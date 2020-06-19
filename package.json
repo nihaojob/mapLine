@@ -1,5 +1,5 @@
 {
-  "version": "0.1.1",
+  "version": "0.1.4",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -12,9 +12,10 @@
     "Android >= 4.4",
     "iOS >= 9"
   ],
+  "homepage": "http://nihaojob.gitee.io/carui/#/carui/maps",
   "repository": {
     "type": "git",
-    "url": "git@https://github.com/nihaojob/mapLine.git"
+    "url": "git+https://github.com/nihaojob/mapLine.git"
   },
   "engines": {
     "node": ">=10"
@@ -62,5 +63,12 @@
   "dependencies": {
     "@types/lodash": "^4.14.155",
     "lodash-es": "^4.17.15"
-  }
+  },
+  "keywords": [
+    "react",
+    "map",
+    "地图",
+    "高德",
+    "线路展示"
+  ]
 }
