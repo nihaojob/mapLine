@@ -36,12 +36,14 @@ interface defaultOptions {
     styles?: any;
   };
   anime?: anime;
+  animeMarker?: Function;
   position?: {
     // 当前坐标
     show?: boolean;
     icon?: string;
     LT: number[];
   };
+  allLine?: any;
 }
 
 class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
