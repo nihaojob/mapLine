@@ -4,52 +4,43 @@ import './index.less';
 
 declare let AMap: any;
 
-interface ITextPaperProps {
-  anime: anime;
-  path: Array<pathItem>;
-  donePath: Array<[number, number]>;
-  animeMarker: Function;
-  allLine: any;
-}
+interface ITextPaperProps extends defaultOptions {}
 interface IEntranceState {
   elId: string;
 }
 
-interface pathItem {
+interface pathItem extends donePathItem {
   iconText: string;
   title: string;
-  theme: number;
-  LT: Array<[number, number]>;
+  theme?: number;
+}
+
+interface donePathItem {
+  LT: number[];
 }
 
 interface anime {
-  show: boolean;
-  icon: string;
-  pathColor: string;
-  type: Array<[number, number]>;
+  show?: boolean;
+  icon?: string;
+  pathColor?: string;
+  type?: string;
 }
 
 interface defaultOptions {
-  path: any;
-  pathColor: string;
-  donePath: any;
-  donePathColor: string;
-  marker: {
-    show: boolean;
-    styles: any;
+  path: Array<pathItem>;
+  pathColor?: string;
+  donePath?: Array<donePathItem>;
+  donePathColor?: string;
+  marker?: {
+    show?: boolean;
+    styles?: any;
   };
-  anime: {
-    // 路径回放
-    show: boolean;
-    icon: string;
-    pathColor: string;
-    type: string;
-  };
-  position: {
+  anime?: anime;
+  position?: {
     // 当前坐标
-    show: boolean;
-    icon: string;
-    LT: Array<any>;
+    show?: boolean;
+    icon?: string;
+    LT: number[];
   };
 }
 
