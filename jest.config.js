@@ -1,6 +1,11 @@
 module.exports = {
   testEnvironment: 'node',
   testMatch: ['<rootDir>/**/*(*.)@(test).[tj]s?(x)'],
+  globals: {
+    'ts-jest': {
+      diagnostics: false,
+    },
+  },
   testPathIgnorePatterns: [
     '/node_modules/', // default
     '<rootDir>/templates/', // don't run tests in the templates
