@@ -1,9 +1,13 @@
 
 maplib2
 ===========
-![issues](https://img.shields.io/github/issues/nihaojob/mapLine)
+![CI](https://github.com/nihaojob/mapLine/workflows/CI/badge.svg)
 [![License](https://img.shields.io/github/license/nihaojob/mapLine)](https://www.npmjs.com/package/maplib2)
+![issues](https://img.shields.io/github/issues/nihaojob/mapLine)
+[![GitHub forks](https://img.shields.io/github/forks/nihaojob/mapLine)](https://github.com/nihaojob/mapLine/network)
+[![GitHub stars](https://img.shields.io/github/stars/nihaojob/mapLine)](https://github.com/nihaojob/mapLine/stargazers)
 ![Vsersion](https://img.shields.io/badge/npm-0.1.3-green)
+
 
 一个基于高德地图的线路展示React组件。
 
@@ -169,8 +173,8 @@ export default () => <Maps {...options} />;
 - [X] 添加第一版文档
 - [X] 发布npm
 - [x] NPM 文档更新
-- [ ] TypeScript 类型抽出
-- [ ] Jest 测试用例增加
+- [x] TypeScript 类型抽出
+- [ ] Jest 测试用例增加 快照未生效，增加测试用例debug方式
 - [ ] 关键字搜索
 - [ ] 多条线路配置
 
