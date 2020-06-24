@@ -42,6 +42,12 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
+  },
   "name": "maplib2",
   "author": "qinshaowei",
   "module": "dist/maplib.esm.js",
@@ -51,6 +57,7 @@
     "autoprefixer": "^9.8.0",
     "cssnano": "^4.1.10",
     "husky": "^4.2.5",
+    "identity-obj-proxy": "^3.0.0",
     "less": "^3.11.3",
     "np": "^6.2.4",
     "react": "^16.13.1",
