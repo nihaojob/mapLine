@@ -10,16 +10,23 @@ maplib2
 ![Vsersion](https://img.shields.io/badge/npm-0.1.3-green)
 
 
+### 概述
 一个基于高德地图的线路展示React组件。
 
-####  1. 引入高德SDK
+更便捷的完成地图展示的开发，**不需要再学习高德的Api**。
+<img src="http://nihaojob.gitee.io/carui/demo.png" width="75%"  />
+
+
+### 起步
+
+1. 引入高德SDK
 需要在页面中引入高德SDK文件，并修改为你的Key。
 ```html
 <!-- html部分添加 -->
 <script src="https://webapi.amap.com/maps?v=1.4.15&key=你的key&plugin=AMap.Driving"></script>
 ```
 
-####  2. 安装
+2. 安装
 ```bash
 # use Npm
 $ npm install maplib2
@@ -28,7 +35,7 @@ $ npm install maplib2
 $ yarn add maplib2
 ```
 
-#### 3. 使用
+3. 使用
 ```js
 import Maplib2 from 'maplib2'
 import 'maplib2/dist/mapLine.min.css'
@@ -36,12 +43,9 @@ import 'maplib2/dist/mapLine.min.css'
 <Maplib2 {...options} />
 ```
 
-### 理念
-更便捷的完成地图展示的开发，**不需要再学习高德的Api**。
-
-<img src="http://nihaojob.gitee.io/carui/demo.png" width="75%"  />
-
 ## 代码演示
+
+[示例](http://nihaojob.gitee.io/carui/#/carui/maps?anchor=%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA)
 
 ```tsx
 import Maplib2 from 'maplib2'
@@ -178,4 +182,9 @@ export default () => <Maps {...options} />;
 - [ ] Jest 测试用例增加 快照未生效，增加测试用例debug方式
 - [ ] 关键字搜索
 - [ ] 多条线路配置
+
+
+## Licensed
+
+MIT.
 
