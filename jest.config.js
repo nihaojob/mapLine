@@ -1,5 +1,6 @@
 module.exports = {
   testEnvironment: 'node',
+  verbose: false,
   testMatch: ['<rootDir>/**/*(*.)@(test).[tj]s?(x)'],
   testPathIgnorePatterns: [
     '/node_modules/', // default
