@@ -7,6 +7,7 @@ import * as ReactDOM from 'react-dom';
 import Maps from '../src/index';
 import renderer from 'react-test-renderer';
 
+
 // PromiseScript加载
 function getAmapuiPromise() {
   const script = buildScriptTag(
@@ -85,29 +86,34 @@ const options = {
   },
 };
 
+beforeAll(() => {
+  return getAmapuiPromise();
+});
 describe('it', () => {
   it('正常渲染', () => {
     // 加载高德后执行
-    getAmapuiPromise().then(() => {
-      initDemo();
-    });
-    function initDemo() {
+    // getAmapuiPromise().then(() => {
+    //   initDemo();
+    // });
+    // function initDemo() {
       const div = document.createElement('div');
       ReactDOM.render(<Maps {...options} />, div);
       ReactDOM.unmountComponentAtNode(div);
-    }
+    // }
   });
 
   test('快照存储', () => {
+    const component = renderer.create(<Maps {...options} />);
+    let tree = component.toJSON();
     // 加载高德后执行
     getAmapuiPromise().then(() => {
-      initDemo();
+      console.log(initDemo(),1111);
     });
-
     function initDemo() {
       const component = renderer.create(<Maps {...options} />);
       let tree = component.toJSON();
       expect(tree).toMatchSnapshot();
+      return tree;
       // re-rendering
       // tree = component.toJSON();
       // expect(tree).toMatchSnapshot();
