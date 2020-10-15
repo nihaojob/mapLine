@@ -27,6 +27,7 @@ interface anime {
 
 interface defaultOptions {
   keyword?: boolean;
+  style?: React.CSSProperties;
   path: Array<pathItem>;
   pathColor?: string;
   donePath?: Array<donePathItem>;
@@ -61,6 +62,7 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
 
     const defaultOptions: defaultOptions = {
       keyword: false,
+      style: {},
       path: [],
       pathColor: '#1890ff',
       donePath: [],
@@ -377,7 +379,7 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
     return (
       <div
         id={this.state.elId}
-        style={{ width: '100%', height: '300px' }}
+        style={{ width: '100%', height: '300px', ...this.props.style }}
       ></div>
     );
   }

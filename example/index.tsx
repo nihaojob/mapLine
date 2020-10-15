@@ -130,7 +130,7 @@ const App = () => {
   return (
     <div>
       <div>关键字</div>
-      <Maps {...options} />
+      <Maps {...options} style={{height:'400px'}} />
       <div>坐标</div>
       <Maps {...options1} />
       {/* <Maps {...options} /> */}
