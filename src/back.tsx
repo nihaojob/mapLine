@@ -4,12 +4,9 @@ import './index.less';
 
 declare let AMap: any;
 
+interface ITextPaperProps extends defaultOptions {}
 interface IEntranceState {
   elId: string;
-}
-
-interface donePathItem {
-  LT: number[];
 }
 
 interface pathItem extends donePathItem {
@@ -18,15 +15,18 @@ interface pathItem extends donePathItem {
   theme?: number;
 }
 
+interface donePathItem {
+  LT: number[];
+}
+
 interface anime {
   show?: boolean;
   icon?: string;
   pathColor?: string;
-  type?: 'path' | 'done';
+  type?: string;
 }
 
 interface defaultOptions {
-  keyword?: boolean;
   path: Array<pathItem>;
   pathColor?: string;
   donePath?: Array<donePathItem>;
@@ -46,11 +46,10 @@ interface defaultOptions {
   allLine?: any;
 }
 
-interface ITextPaperProps extends defaultOptions {}
-
 class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
+  // keyCITY: { keyword: string; city: string; }[];
   map: {
-    setFitView: Function;
+    setFitView: any;
   };
   options: any;
   constructor(props: Readonly<ITextPaperProps>) {
@@ -60,7 +59,6 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
     };
 
     const defaultOptions: defaultOptions = {
-      keyword: false,
       path: [],
       pathColor: '#1890ff',
       donePath: [],
@@ -74,7 +72,7 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
         show: false,
         icon: 'https://webapi.amap.com/images/car.png',
         pathColor: '#722ed1',
-        type: 'path', // path done 沿着回放
+        type: 'path', // 沿着done或者all回放
       },
       position: {
         // 当前坐标
@@ -85,109 +83,10 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
     };
 
     this.options = _.merge(defaultOptions, props);
+
     this.map = {
-      setFitView: () => {},
+      setFitView: {},
     };
-  }
-
-  public componentDidMount() {
-    this.createdMap();
-    // 单条线路
-    this.options.keyword ? this.keywordLine() : this.ployOneLine();
-  }
-
-  // 坐标渲染入口
-  public ployOneLine() {
-    const options = this.options;
-    const mainParam = this.dataToParams(options.path);
-    const doneParam = this.dataToParams(options.donePath);
-
-    this.getDrivLineData(mainParam, (path: any, source: any) => {
-      this.getDrivLineData(doneParam, (path2: any) => {
-        this.initStepMap(path, path2, source);
-      });
-    });
-  }
-
-  // 关键字渲染入口
-  public keywordLine() {
-    // 汉字搜索
-    this.getDrivLineData(...this.options.path, (path: any, source: any) => {
-      this.getDrivLineData(...this.options.donePath, (path2: any) => {
-        this.initStepMap(path, path2, source);
-      });
-    });
-  }
-
-  // 坐标与关键字公共方法
-  public initStepMap(path: any, donePath: any, source: any) {
-    const { options } = this;
-    // 绘制全长线路
-    const routeLine = this.ployLine(path, options.pathColor);
-    const donePathLine = this.ployLine(donePath, options.donePathColor);
-    this.map.setFitView([routeLine, donePathLine]);
-
-    // 动画展示 灰色或者全部
-    if (options.anime.show) {
-      const carAnime = (pathData: any) => {
-        const carMarker = this.carAnime(pathData, options.anime.pathColor);
-        this.props.animeMarker && this.props.animeMarker(carMarker);
-      };
-      options.anime.type === 'path' && carAnime(path);
-      options.anime.type === 'done' && carAnime(donePath);
-    }
-
-    // 当前车坐标
-    options.position.show && this.addCarIndex(options.position.LT);
-
-    // marke添加
-    if (options.marker.show) {
-      const markArr = [source.start, ...source.waypoints, source.end].map(
-        (item, index) => {
-          const pathIndexItem = options.path[index];
-          // 选中增加当前汽车图表
-          if (pathIndexItem.active) {
-            const { lat, lng } = item.location;
-            this.addCarIndex([lng, lat]);
-          }
-          return {
-            LT: item.location,
-            title: item.name,
-            ...pathIndexItem,
-          };
-        }
-      );
-      this.addMarke(markArr);
-    }
-  }
-
-  public dataToParams(options: any[]) {
-    if (!options[0].hasOwnProperty('keyword')) {
-      return this.lineUtil(options).param;
-    } else {
-      return options;
-    }
-  }
-
-  // 创建地图
-  public createdMap() {
-    const map = new AMap.Map(this.state.elId, {
-      // center: [116.397559, 39.89621],
-      zoom: 14,
-      mapStyle: 'amap://styles/whitesmoke', // 主题
-      showLabel: false, // 隐藏label
-    });
-    AMap.plugin(['AMap.ToolBar'], function() {
-      // 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
-      map.addControl(
-        new AMap.ToolBar({
-          // 简易缩放模式，默认为 false
-          liteStyle: true,
-        })
-      );
-    });
-    this.map = map;
-    return map;
   }
 
   // 取值方式修改，LT坐标转换
@@ -215,6 +114,27 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
         },
       ],
     };
+  }
+
+  // 创建地图
+  public createdMap() {
+    const map = new AMap.Map(this.state.elId, {
+      // center: [116.397559, 39.89621],
+      zoom: 14,
+      mapStyle: 'amap://styles/whitesmoke', // 主题
+      showLabel: false, // 隐藏label
+    });
+    AMap.plugin(['AMap.ToolBar'], function() {
+      // 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
+      map.addControl(
+        new AMap.ToolBar({
+          // 简易缩放模式，默认为 false
+          liteStyle: true,
+        })
+      );
+    });
+    this.map = map;
+    return map;
   }
 
   // 获取导航数据
@@ -263,10 +183,18 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
     // 规划数据转路径
     function parseRouteToPath(route: { steps: string | any[] }) {
       const path = [];
+      let index = 0
       for (let i = 0, l = route.steps.length; i < l; i++) {
         const step = route.steps[i];
         // 简版路径
-        path.push(step.start_location);
+        // path.push(step.start_location);
+        // 详细路径 倍数取值
+        for (let j = 0, n = step.path.length; j < n; j++) {
+          index++;
+          if(index%10 ===0 ){
+              path.push(step.path[j])
+          }
+        }
       }
       return path;
     }
@@ -302,6 +230,7 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
         strokeOpacity: 1,
       });
     });
+
     return routeLine;
   }
 
@@ -310,7 +239,7 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
     return markArr.map(item => {
       return new AMap.Marker({
         position: item.LT,
-        content: item.tmpl ? item.tmpl(item) : utliTmpl(item),
+        content: utliTmpl(item),
         map: this.map,
       });
     });
@@ -361,8 +290,103 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
     });
     return carMarker;
   }
-  // 添加汽车当前节点
-  public addCarIndex(LT: [Number, Number]) {
+
+  public initLintKeyTest(option: any) {
+    const func = (path: any, source: any) => {
+      const markArr = [source.start, ...source.waypoints, source.end].map(
+        (item, index) => {
+          return {
+            iconText: '仓',
+            theme: Math.round(Math.random() * 10),
+            LT: item.location,
+            title: item.cityname,
+            ...option[index],
+          };
+        }
+      );
+      this.addMarke(markArr);
+
+      const colorStr = Color();
+      const shortLines = this.ployLine(path, colorStr);
+
+      this.carAnime(path, Color());
+      this.map.setFitView([shortLines]);
+
+      function Color() {
+        var colorElements = '0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f';
+        var colorArray = colorElements.split(',');
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += colorArray[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+    };
+    option.push(func);
+    // 汉字搜索
+    this.getDrivLineData(...option); // tslint:disable-line
+  }
+
+  public componentDidMount() {
+    this.createdMap();
+    // this.initLintKeyTest(this.keyCITY)
+    const { allLine } = this.props;
+
+    if (allLine) {
+        this.initLintKeyTest(allLine);
+      // 多条线路
+    //   allLine.forEach((options: any) => {
+        
+    //   });
+    } else {
+      // 单条线路
+      this.ployOneLine();
+    }
+  }
+  public ployOneLine() {
+    const options = this.options;
+
+    const lineData = this.lineUtil(options.path);
+    this.getDrivLineData(lineData.param, (path: any) => {
+      // 绘制全长线路
+      const routeLine = this.ployLine(path, options.pathColor);
+      this.map.setFitView([routeLine]);
+
+      // 当前车坐标
+      options.position.show && this.addCarIndex(options.position.LT);
+
+      // marke添加
+      options.marker.show && this.addMarke(lineData.lineArrCopy);
+
+      // 绘制动画
+      const carAnime = (pathData: any) => {
+        if (options.anime.show) {
+          const carMarker = this.carAnime(pathData, options.anime.pathColor);
+          const carPop = this.props.animeMarker || function() {};
+          carPop(carMarker);
+        }
+      };
+
+      // 灰色线路
+      if (options.donePath.length > 0) {
+        const doneDataArr = this.lineUtil(options.donePath);
+        this.getDrivLineData(doneDataArr.param, (donePath: any) => {
+          this.ployLine(donePath, options.donePathColor);
+
+          // 动画展示
+          if (options.anime.show && options.anime.type === 'donePath') {
+            carAnime(donePath);
+          }
+        });
+      }
+
+      // 动画展示
+      if (options.anime.show && options.anime.type === 'path') {
+        carAnime(path);
+      }
+    });
+  }
+  public addCarIndex(LT: any) {
     // 汽车图标
     new AMap.Marker({
       map: this.map,
@@ -373,11 +397,12 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
       angle: -90,
     });
   }
+
   public render() {
     return (
       <div
         id={this.state.elId}
-        style={{ width: '100%', height: '300px' }}
+        style={{ width: '100%', height: '500px' }}
       ></div>
     );
   }
