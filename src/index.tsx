@@ -45,6 +45,7 @@ interface defaultOptions {
     LT: number[];
   };
   allLine?: any;
+  complete?: (event: any) => void;
 }
 
 interface ITextPaperProps extends defaultOptions {}
@@ -161,6 +162,9 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
       );
       this.addMarke(markArr);
     }
+
+    options.complete &&
+      options.complete({ path, donePath, source, map: this.map });
   }
 
   public dataToParams(options: any[]) {
