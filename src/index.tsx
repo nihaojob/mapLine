@@ -144,27 +144,27 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
     options.position.show && this.addCarIndex(options.position.LT);
 
     // marke添加
-    if (options.marker.show) {
-      const markArr = [source.start, ...source.waypoints, source.end].map(
-        (item, index) => {
-          const pathIndexItem = options.path[index];
-          // 选中增加当前汽车图表
-          if (pathIndexItem.active) {
-            const { lat, lng } = item.location;
-            this.addCarIndex([lng, lat]);
-          }
-          return {
-            LT: item.location,
-            title: item.name,
-            ...pathIndexItem,
-          };
+    const markArr = [source.start, ...source.waypoints, source.end].map(
+      (item, index) => {
+        const pathIndexItem = options.path[index];
+        // 选中增加当前汽车图表
+        if (pathIndexItem.active) {
+          const { lat, lng } = item.location;
+          this.addCarIndex([lng, lat]);
         }
-      );
+        return {
+          LT: item.location,
+          title: item.name,
+          ...pathIndexItem,
+        };
+      }
+    );
+    if (options.marker.show) {
       this.addMarke(markArr);
     }
 
     options.complete &&
-      options.complete({ path, donePath, source, map: this.map });
+      options.complete({ path, donePath, source, markArr, map: this.map });
   }
 
   public dataToParams(options: any[]) {
