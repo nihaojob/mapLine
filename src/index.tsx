@@ -23,6 +23,7 @@ interface anime {
   icon?: string;
   pathColor?: string;
   type?: 'path' | 'done';
+  movealong?: () => void;
 }
 
 interface defaultOptions {
@@ -364,6 +365,10 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
     // 形式过的动画
     carMarker.on('moving', function(e: { passedPath: any }) {
       passedPolyline.setPath(e.passedPath);
+    });
+
+    carMarker.on('movealong', () => {
+      this.options.anime.movealong && this.options.anime.movealong();
     });
     return carMarker;
   }
