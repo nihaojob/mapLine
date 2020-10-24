@@ -117,7 +117,9 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
   public keywordLine() {
     // 汉字搜索
     this.getDrivLineData(...this.options.path, (path: any, source: any) => {
+      console.log(...this.options.donePath,'this.options.donePath');
       this.getDrivLineData(...this.options.donePath, (path2: any) => {
+        console.log(2222);
         this.initStepMap(path, path2, source);
       });
     });
@@ -140,7 +142,6 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
       options.anime.type === 'path' && carAnime(path);
       options.anime.type === 'done' && carAnime(donePath);
     }
-
     // 当前车坐标
     options.position.show && this.addCarIndex(options.position.LT);
 
@@ -160,10 +161,10 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
         };
       }
     );
+
     if (options.marker.show) {
       this.addMarke(markArr);
     }
-
     options.complete &&
       options.complete({ path, donePath, source, markArr, map: this.map });
   }
@@ -225,8 +226,11 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
   }
 
   // 获取导航数据
-  public getDrivLineData(option?: any, cb?: Function) {
+  public getDrivLineData(option: any = [], cb?: Function) {
     let cbfn: any = cb || function() {};
+    if (arguments.length === 1) {
+      return option([], null);
+    }
     const driving = createDriv();
     // 参数拼接
     let param = [];

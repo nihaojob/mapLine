@@ -67,27 +67,27 @@ const textPath = [
       return `<div class="tmplItem">${title}</div>`;
     },
   },
-  {
-    keyword: '石家庄',
-    city: '石家庄',
-    title: '1111',
-    iconText: '仓',
-  },
-  {
-    keyword: '郑州',
-    city: '郑州',
-    title: '1111',
-    iconText: '仓',
-    active: true,
-    theme: 7,
-  },
-  {
-    keyword: '长沙',
-    city: '长沙',
-    title: '1111',
-    iconText: '仓',
-    theme: 9,
-  },
+//   {
+//     keyword: '石家庄',
+//     city: '石家庄',
+//     title: '1111',
+//     iconText: '仓',
+//   },
+//   {
+//     keyword: '郑州',
+//     city: '郑州',
+//     title: '1111',
+//     iconText: '仓',
+//     active: true,
+//     theme: 7,
+//   },
+//   {
+//     keyword: '长沙',
+//     city: '长沙',
+//     title: '1111',
+//     iconText: '仓',
+//     theme: 9,
+//   },
   {
     keyword: '广州',
     city: '广州',
@@ -102,14 +102,14 @@ const options = {
   path: textPath,
   keyword: true,
   donePath: [
-    {
-      keyword: '济南',
-      city: '济南',
-    },
-    {
-      keyword: '石家庄',
-      city: '石家庄',
-    },
+    // {
+    //   keyword: '济南',
+    //   city: '济南',
+    // },
+    // {
+    //   keyword: '石家庄',
+    //   city: '石家庄',
+    // },
   ],
   position: {
     show: true,
@@ -132,7 +132,7 @@ const App = () => {
       <div>关键字</div>
       <Maps {...options} style={{height:'400px'}} />
       <div>坐标</div>
-      <Maps {...options1} />
+      {/* <Maps {...options1} /> */}
       {/* <Maps {...options} /> */}
     </div>
   );

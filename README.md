@@ -21,6 +21,7 @@ maplib2
 
 1. 引入高德SDK
 需要在页面中引入高德SDK文件，并修改为你的Key。
+[文档](http://nihaojob.gitee.io/carui/#/carui/maps?anchor=%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA)
 ```html
 <!-- html部分添加 -->
 <script src="https://webapi.amap.com/maps?v=1.4.15&key=你的key&plugin=AMap.Driving"></script>
@@ -179,8 +180,8 @@ export default () => <Maps {...options} />;
 - [X] 发布npm
 - [x] NPM 文档更新
 - [x] TypeScript 类型抽出
+- [x] 关键字搜索
 - [ ] Jest 测试用例增加 快照未生效，增加测试用例debug方式
-- [ ] 关键字搜索
 - [ ] 多条线路配置
 
 
