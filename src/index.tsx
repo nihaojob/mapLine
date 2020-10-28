@@ -289,7 +289,7 @@ class Maps extends React.Component<ITextPaperProps, IEntranceState, any> {
     const routeLine = new AMap.Polyline({
       path: path,
       isOutline: true,
-    //   outlineColor: '#ffeeee',
+      outlineColor: '#fff0',
       borderWeight: 2,
       strokeWeight: 5,
       strokeColor,

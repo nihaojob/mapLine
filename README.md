@@ -16,7 +16,6 @@ maplib2
 更便捷的完成地图展示的开发，**不需要再学习高德的Api**。
 <img src="http://nihaojob.gitee.io/carui/demo.png" width="75%"  />
 
-
 ### 起步
 
 1. 引入高德SDK
