@@ -11,7 +11,7 @@ maplib2
 
 
 ### 概述
-一个基于高德地图的线路展示React组件。
+[文档](http://nihaojob.gitee.io/carui/#/carui/maps?anchor=%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA)，一个基于高德地图的线路展示React组件。
 
 更便捷的完成地图展示的开发，**不需要再学习高德的Api**。
 <img src="http://nihaojob.gitee.io/carui/demo.png" width="75%"  />
@@ -21,7 +21,7 @@ maplib2
 
 1. 引入高德SDK
 需要在页面中引入高德SDK文件，并修改为你的Key。
-[文档](http://nihaojob.gitee.io/carui/#/carui/maps?anchor=%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA)
+
 ```html
 <!-- html部分添加 -->
 <script src="https://webapi.amap.com/maps?v=1.4.15&key=你的key&plugin=AMap.Driving"></script>
